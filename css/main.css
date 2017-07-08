@@ -72,3 +72,9 @@ footer div{
   width: 250px;
   height: 250px;
 }
+address{
+  font-style: normal;
+}
+address:hover{
+  color:#999999;
+}
