@@ -10,11 +10,10 @@
     "directory": "./public",
     // 存在しないパスは 404 を返す（1枚ものの LP なので SPA フォールバックはしない）
     "not_found_handling": "404-page"
-  }
-  // 独自ドメインは、shikumi-zukuri.com の DNS を Cloudflare に移した後に
-  // 以下を追加して有効化する。
-  // "routes": [
-  //   { "pattern": "shikumi-zukuri.com", "custom_domain": true },
-  //   { "pattern": "www.shikumi-zukuri.com", "custom_domain": true }
-  // ]
+  },
+  // 独自ドメイン（DNS は Cloudflare 管理）。デプロイ時に DNS レコードと証明書が自動で作られる
+  "routes": [
+    { "pattern": "shikumi-zukuri.com", "custom_domain": true },
+    { "pattern": "www.shikumi-zukuri.com", "custom_domain": true }
+  ]
 }
