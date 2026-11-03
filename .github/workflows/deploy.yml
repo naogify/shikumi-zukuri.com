@@ -1,0 +1,35 @@
+# master への push で Cloudflare Workers（静的アセット）にデプロイする。
+# 必要な GitHub Secrets:
+#   CLOUDFLARE_API_TOKEN  … 「Edit Cloudflare Workers」権限の API トークン
+#   CLOUDFLARE_ACCOUNT_ID … Cloudflare のアカウント ID
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  # 手動でも再デプロイできるようにする
+  workflow_dispatch:
+
+# 同時に複数のデプロイが走らないよう、後から来たものを待たせる
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリを取得
+      - uses: actions/checkout@v4
+
+      # wrangler で public/ を Workers にデプロイ
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          command: deploy
