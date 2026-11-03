@@ -23,11 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # リポジトリを取得
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # wrangler で public/ を Workers にデプロイ
       - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
